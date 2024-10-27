@@ -1,0 +1,115 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+    
+{{ form_start(form) }}
+    <div>
+        {{ form_errors(form) }}
+    </div>
+   <div class="row">
+        <div class="col">
+        <p{% if pagination.isSorted('ann.title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Intitulé', 'ann.title') }}</p>
+            {{ form_row(form.title) }}
+        </div>
+        <div class="col">
+                <p{% if pagination.isSorted('ann.createdAt') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Date de Publication', 'ann.createdAt') }}</p>
+
+            {{ form_row(form.createdAt) }}
+        </div>
+        <div class="col">
+        Métier
+            {{ form_row(form.metier) }}
+        </div>
+        <div class="col">
+        Contrat
+            {{ form_row(form.contrat) }}
+        </div>
+        <div class="col">
+        Ville
+            {{ form_row(form.ville) }}
+        </div>
+        <div class="col">
+            <button type="submit" class="btn btn-success">SEARCH</button>
+        </div>
+          <div class="col">
+            <button class="btn btn-danger" onclick=""><a href="{{ path('app_home') }}", style="color:white; text-decoration:none">RESET FILTER</a></button>
+        </div>
+      
+{{ form_end(form) }}
+
+
+	{# display navigation #}
+	<div class="navigation">
+		{{ knp_pagination_render(pagination) }}
+	</div>
+
+    {# FILTRE #}
+    {% for el in pagination %}
+        {% if loop.index % 2 == 0 %}
+            <table class="bg-secondary">
+        {% else %}
+            <table>
+        {% endif %}
+        <tr> 
+            <td>
+          	    <img src={{ el.image.getUrl }} style="width:200px;height:200px"></img>
+            </td> 
+        </tr> 
+        
+        <tr>    
+            <th>Publié le : </th>
+            <td>
+    	        {{ el.createdAt|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY") }}
+            </td>  
+        </tr>   
+         <tr>    
+            <th>Entreprise : </th>
+            <td>
+    	        {{ el.entreprise.getName }}
+            </td>   
+        </tr>  
+        <tr>
+            <th>Intitulé : </th>
+            <td>
+    	        {{ el.title }}
+            </td> 
+        </tr>
+        <tr>
+            <th>Référence : </th>
+            <td>
+    	        {{ el.reference }}
+            </td> 
+        </tr>
+        <tr>
+            <th>Métier : </th>
+            <td>
+    	        {{ el.metier.getJobName }}
+            </td> 
+        </tr>
+        <tr>
+            <th>Contrat : </th>
+            <td>
+    	        {{ el.contrat.getTypeContrat }}
+            </td> 
+        </tr>
+        <tr>
+            <th>Ville : </th>
+            <td>
+    	        {{ el.ville.getName }}
+            </td> 
+        </tr>
+        <tr>
+            <th>Descrition : </th>
+            <td>
+    	        {{ el.description|u.truncate(30, '...') }}
+            </td> 
+        </tr>  
+    </table>
+    {% endfor %}
+
+
+
+
+	{% endblock %}
