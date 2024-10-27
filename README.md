@@ -1,6 +1,6 @@
 # Job Board Subslill
 
-_Ce projet à été réalisé lors d'un test technique pour l'entreprise Subskill_
+_Ce projet a été réalisé lors d'un test technique pour l'entreprise Subskill_
 <br>
 _Réalisé à l'aide du Framework Symfony le projet était d'afficher des offres d'emploi contenu dans une base de données, de pouvoir filtrer les résultats, mais aussi d'ajouter, modifier ou supprimer une offre via une API REST._
 
